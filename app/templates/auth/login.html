@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Login – GIK Timetable</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <style>
+    body { background: linear-gradient(135deg,#1a3a5c,#2d6a9f); min-height:100vh; display:flex; align-items:center; justify-content:center; }
+    .login-card { border:none; border-radius:18px; box-shadow:0 8px 32px rgba(0,0,0,.25); max-width:400px; width:100%; }
+    .login-header { background:linear-gradient(135deg,#1a3a5c,#2d6a9f); color:#fff; border-radius:18px 18px 0 0; padding:2rem; text-align:center; }
+  </style>
+</head>
+<body>
+<div class="login-card card">
+  <div class="login-header">
+    <h3 class="mb-1">&#128197; GIK Timetable</h3>
+    <small>Scheduling System</small>
+  </div>
+  <div class="card-body p-4">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% for cat, msg in messages %}
+      <div class="alert alert-{{ cat }} py-2">{{ msg }}</div>
+      {% endfor %}
+    {% endwith %}
+    <form method="POST">
+      <div class="mb-3">
+        <label class="form-label fw-semibold">Username</label>
+        <input type="text" name="username" class="form-control" placeholder="admin" required autofocus/>
+      </div>
+      <div class="mb-4">
+        <label class="form-label fw-semibold">Password</label>
+        <input type="password" name="password" class="form-control" placeholder="••••••••" required/>
+      </div>
+      <button type="submit" class="btn btn-primary w-100">Sign In</button>
+    </form>
+  </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

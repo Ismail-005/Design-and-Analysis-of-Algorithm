@@ -1,0 +1,24 @@
+.DS_Store
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Virtual environments
+.venv/
+venv/
+
+# Database
+*.db
+*.sqlite3
+
+# Generated scheduler exports
+output/
+
+# IDE
+.vscode/
+.idea/

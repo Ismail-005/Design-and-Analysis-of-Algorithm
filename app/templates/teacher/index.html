@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% block title %}Teacher Schedule – GIK Timetable{% endblock %}
+{% block content %}
+<h4 class="fw-bold text-secondary mb-3"><i class="bi bi-person-badge me-2"></i>Teacher Schedule</h4>
+
+<div class="card mb-4">
+  <div class="card-body">
+    <form method="GET" class="d-flex gap-2 align-items-center flex-wrap">
+      <label class="fw-semibold mb-0">Select Instructor:</label>
+      <select name="instructor" class="form-select" style="max-width:320px" onchange="this.form.submit()">
+        <option value="">— Choose an instructor —</option>
+        {% for inst in instructors %}
+        <option value="{{ inst }}" {% if inst == selected %}selected{% endif %}>{{ inst }}</option>
+        {% endfor %}
+      </select>
+      {% if selected %}<a href="{{ url_for('teacher.index') }}" class="btn btn-outline-secondary btn-sm">Clear</a>{% endif %}
+    </form>
+  </div>
+</div>
+
+{% if selected %}
+<div class="card">
+  <div class="card-header"><i class="bi bi-calendar3-week me-1"></i> Weekly Schedule — {{ selected }}</div>
+  <div class="card-body p-0">
+    {% if days %}
+    <div class="table-responsive">
+      <table class="table table-bordered table-sm mb-0" style="font-size:.85rem">
+        <thead>
+          <tr>
+            <th style="width:120px">Time</th>
+            {% for day in days %}<th class="text-center">{{ day }}</th>{% endfor %}
+          </tr>
+        </thead>
+        <tbody>
+          {% for si in all_slot_indices %}
+          <tr>
+            <td class="fw-semibold text-nowrap">{{ slot_labels.get(si, si) }}</td>
+            {% for day in days %}
+            <td class="align-top" style="min-width:140px">
+              {% for a in schedule.get(day, {}).get(si, []) %}
+              <div class="mb-1">
+                <strong class="{% if a.is_lab %}text-warning{% else %}text-primary{% endif %}">
+                  {{ a.course_code }}{% if a.section %} {{ a.section }}{% endif %}
+                </strong>
+                {% if a.is_lab %}<span class="badge bg-warning text-dark ms-1" style="font-size:.6rem">LAB</span>{% endif %}
+                <br><span class="text-muted" style="font-size:.78rem">{{ a.room_name }}</span>
+              </div>
+              {% endfor %}
+            </td>
+            {% endfor %}
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    {% else %}
+    <div class="p-4 text-center text-muted">No sessions found for this instructor.</div>
+    {% endif %}
+  </div>
+</div>
+{% endif %}
+{% endblock %}

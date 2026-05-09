@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block title %}Rooms – GIK Timetable{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-3">
+  <h4 class="fw-bold text-secondary mb-0"><i class="bi bi-building me-2"></i>Rooms</h4>
+  <a href="{{ url_for('rooms.template') }}" class="btn btn-outline-secondary btn-sm">
+    <i class="bi bi-download me-1"></i>Download Template
+  </a>
+</div>
+
+<div class="card mb-4">
+  <div class="card-header"><i class="bi bi-upload me-1"></i> Upload Rooms (CSV or Excel)</div>
+  <div class="card-body">
+    <form method="POST" action="{{ url_for('rooms.upload') }}" enctype="multipart/form-data">
+      <div class="input-group">
+        <input type="file" name="file" class="form-control" accept=".csv,.xlsx,.xls" required/>
+        <button type="submit" class="btn btn-primary"><i class="bi bi-upload me-1"></i>Upload & Replace</button>
+      </div>
+      <small class="text-muted mt-1 d-block">Uploading will replace all existing room records.</small>
+    </form>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-header"><i class="bi bi-list me-1"></i> Room List ({{ rooms|length }} records)</div>
+  <div class="card-body p-0">
+    {% if rooms %}
+    <div class="table-responsive">
+      <table class="table table-hover mb-0">
+        <thead><tr><th>Room ID</th><th>Name</th><th>Building</th><th>Capacity</th><th>Lab?</th><th>Type</th></tr></thead>
+        <tbody>
+          {% for r in rooms %}
+          <tr>
+            <td><code>{{ r.room_id }}</code></td>
+            <td>{{ r.room_name }}</td>
+            <td>{{ r.building }}</td>
+            <td>{{ r.capacity }}</td>
+            <td>{% if r.is_lab %}<span class="badge bg-warning text-dark">LAB</span>{% else %}—{% endif %}</td>
+            <td><span class="badge bg-secondary">{{ r.room_type or '—' }}</span></td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    {% else %}
+    <div class="p-4 text-center text-muted">No rooms uploaded yet. Upload a CSV or Excel file above.</div>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

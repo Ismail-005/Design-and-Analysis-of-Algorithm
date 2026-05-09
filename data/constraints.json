@@ -1,0 +1,61 @@
+{
+  "_comment": "GIK Institute – Timetable Scheduler Constraint Configuration",
+
+  "hard_constraints": {
+    "no_instructor_clash":   true,
+    "no_room_double_booking": true,
+    "no_program_clash":      true,
+    "room_type_match":       true,
+    "room_capacity_check":   true
+  },
+
+  "soft_constraints": {
+    "prefer_morning_slots":     false,
+    "minimize_gaps":            true,
+    "building_affinity":        true,
+    "friday_slots_last_resort": true
+  },
+
+  "days": ["Monday","Tuesday","Wednesday","Thursday","Friday"],
+
+  "friday_slot_policy": "allowed",
+
+  "building_affinity": {
+    "BAI": ["ACB","FCSE"],
+    "BCS": ["ACB","FCSE"],
+    "BDS": ["ACB","FCSE"],
+    "CYS": ["ACB","FCSE"],
+    "SE":  ["ACB","FCSE"],
+    "BCE": ["FCSE","ACB"],
+    "BEE": ["FEE"],
+    "EEE": ["FEE"],
+    "EEP": ["FEE"],
+    "BME": ["FME"],
+    "MTE": ["FMCE"],
+    "CME": ["FMCE"],
+    "MGS": ["BB"],
+    "BES": ["FES"],
+    "ES":  ["FES"],
+    "DS":  ["ACB"]
+  },
+
+  "tba_instructors": ["TBA","TBD",""],
+
+  "export": {
+    "pdf":  true,
+    "html": true,
+    "csv":  true
+  },
+
+  "pdf_style": {
+    "header_color":   "#0F2550",
+    "day_color":      "#2E5FA3",
+    "alt_row_color1": "#FFFFFF",
+    "alt_row_color2": "#F0F4FB",
+    "border_color":   "#A0AABF",
+    "room_col_color": "#E8EDF5",
+    "font":           "Helvetica",
+    "page_size":      "A3",
+    "orientation":    "landscape"
+  }
+}
